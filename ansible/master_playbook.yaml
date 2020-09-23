@@ -1,0 +1,31 @@
+---
+- name: Combine CBS Storage Provisioning Playbooks
+  hosts: all
+  connection: local
+  gather_facts: no
+
+# Linux OS Playbooks, os_type = Linux
+- import_playbook: collect-cbs-facts.yaml
+  when: os_type == 'Linux' or os_type == 'linux'
+- import_playbook: create-cbs-volume.yaml
+  when: os_type == 'Linux' or os_type == 'linux'
+- import_playbook: install-iscsi-linux.yaml
+  when: os_type == 'Linux' or os_type == 'linux'
+- import_playbook: create-cbs-host-linux.yaml
+  when: os_type == 'Linux' or os_type == 'linux'
+- import_playbook: login-iscsi-linux.yaml
+  when: os_type == 'Linux' or os_type == 'linux'
+- import_playbook: enable-mpio-linux.yaml
+  when: os_type == 'Linux' or os_type == 'linux'
+
+#Windows OS Playbooks, os_type = Windows
+- import_playbook: collect-cbs-facts.yaml
+  when: os_type == 'Windows' or os_type == 'windows'
+- import_playbook: create-cbs-volume.yaml
+  when: os_type == 'Windows' or os_type == 'windows'
+- import_playbook: install-iscsi-windows.yaml
+  when: os_type == 'Windows' or os_type == 'windows'
+- import_playbook: create-cbs-host-windows.yaml
+  when: os_type == 'Windows' or os_type == 'windows'
+- import_playbook: login-iscsi-mpio-windows.yaml
+  when: os_type == 'Windows' or os_type == 'windows'

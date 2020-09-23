@@ -1,0 +1,50 @@
+---
+- hosts: "{{ cloud_initiator }}"
+  gather_facts: no
+  vars:
+    ansible_shell_type: powershell
+  tasks:
+
+
+    - name: Start iscsi Service
+      win_shell: Start-Service -Name MSiSCSI
+      register: iscsiservice
+
+    - name: Set iscsi Service Automatic for Startup
+      win_shell: Set-Service -Name MSiSCSI -StartupType Automatic
+
+      #    - debug:
+      #        var: iscsiservice
+
+    - name: Retrieve Host IQN
+      win_shell: |
+        $win_iqn = Get-InitiatorPort | Select-Object -Property NodeAddress
+        $win_iqn -match "NodeAddress=(?<iqn>.*)}" | Out-Null
+        $matches['iqn']
+      register: winiqn
+
+      #    - debug:
+      #        var: winiqn
+
+    - set_fact:
+        iqn: "{{ winiqn }}"
+        cacheable: yes
+
+    - name: "Print IQN from hostvars"
+      debug:
+        msg: "{{ hostvars[inventory_hostname]['iqn']['stdout'] | trim }}"
+
+    - name: Retrieve ComputerName
+      win_shell: $env:computername
+      register: hostname
+
+      #    - debug:
+      #        var: hostname
+
+    - set_fact:
+        ansible_hostname: "{{ hostname }}"
+        cacheable: yes
+
+    - name: "Print hostname from hostvars"
+      debug:
+        msg: "{{ hostvars[inventory_hostname]['ansible_hostname']['stdout'] | trim }}"
