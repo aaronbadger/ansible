@@ -115,5 +115,5 @@
     - name: Set MPIO Timer Values
       win_shell: Set-MPIOSetting -NewPathRecoveryInterval 20 -CustomPathRecovery Enabled -NewPDORemovePeriod 30 -NewDiskTimeout 60 -NewPathVerificationState Enabled
 
-    - name: Restart OS for MPIO Timer Values to Take Effect
-      win_shell: Restart-Computer
+      #    - name: Restart OS for MPIO Timer Values to Take Effect
+      #      win_shell: Restart-Computer

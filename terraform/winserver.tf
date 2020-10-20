@@ -1,6 +1,6 @@
-resource "aws_instance" "wininitiatorm5" {
+resource "aws_instance" "wininitiator" {
   ami = "ami-0afb7a78e89642197"
-  instance_type = "m5.4xlarge"
+  instance_type = "t3.medium"
   key_name = "badger"
   vpc_security_group_ids = ["sg-0a3ef763d2efa947f",]
   subnet_id = "subnet-0cc8b926702c45c4b"
@@ -39,6 +39,6 @@ resource "aws_instance" "wininitiatorm5" {
   provisioner "local-exec" {
 
     working_dir = "../ansible/"
-    command = "ansible-playbook -i '${self.private_ip},' -i 'cloudblockstore,' --private-key ${var.private_key_path} -e 'cloud_initiator='${self.private_ip}' fa_url='${var.fa_url}' volname=ansiblevol7 size=1T pure_api_token='${var.pure_api_token}' ansible_python_interpreter=/usr/bin/python3 ansible_user=Administrator' combined_playbook_winserver2019.yaml"
+    command = "ansible-playbook -i '${self.private_ip},' -i 'cloudblockstore,' --private-key ${var.private_key_path} -e 'os_type=windows cloud_initiator='${self.private_ip}' fa_url='${var.fa_url}' volname=ansiblewinservervol size=1T pure_api_token='${var.pure_api_token}' ansible_python_interpreter=/usr/bin/python3 ansible_user=Administrator' master_playbook.yaml"
   }
 }
