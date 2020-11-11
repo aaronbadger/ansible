@@ -1,4 +1,8 @@
-resource "aws_instance" "wininitiator" {
+provider "aws" {
+  region = "us-west-2"
+}
+
+resource "aws_instance" "winserver2019" {
   ami = "ami-0afb7a78e89642197"
   instance_type = "t3.medium"
   key_name = "badger"
@@ -39,6 +43,6 @@ resource "aws_instance" "wininitiator" {
   provisioner "local-exec" {
 
     working_dir = "../ansible/"
-    command = "ansible-playbook -i '${self.private_ip},' -i 'cloudblockstore,' --private-key ${var.private_key_path} -e 'os_type=windows cloud_initiator='${self.private_ip}' fa_url='${var.fa_url}' volname=ansiblewinservervol size=1T pure_api_token='${var.pure_api_token}' ansible_python_interpreter=/usr/bin/python3 ansible_user=Administrator' master_playbook.yaml"
+    command = "ansible-playbook -i '${self.private_ip},' -i 'cloudblockstore,' --private-key ${var.private_key_path} -e 'cloud_initiator='${self.private_ip}' fa_url='${var.fa_url}' volname=ansibledemowinserver size=1T pure_api_token='${var.pure_api_token}' ansible_user=Administrator os_type=windows' master_playbook.yaml"
   }
 }
