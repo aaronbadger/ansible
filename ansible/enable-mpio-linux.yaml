@@ -2,10 +2,20 @@
 - hosts: "{{ cloud_initiator }}"
   become: true
   gather_facts: yes
+  vars:
+    ansible_python_interpreter: auto
 
   tasks:
 
-        - name: create/edit udev rules
+        - name: Remove 51-ec2-hvm-devices udev rules if Amazon Linux 2
+          file:
+            path: /etc/udev/rules.d/51-ec2-hvm-devices.rules
+            state: absent
+          when:  
+            - ansible_distribution_file_variety == 'Amazon'
+            - ansible_distribution_major_version == '2'
+        
+        - name: Create 99-pure-storage udev rules
           shell:
             cmd: |
               cat > /lib/udev/rules.d/99-pure-storage.rules <<EOF
@@ -24,14 +34,26 @@
               ACTION=="add|change", KERNEL=="sd*[!0-9]", SUBSYSTEM=="block", ENV{ID_VENDOR}=="PURE", ATTR{device/timeout}="60"
               EOF
 
-        - name: load the new udev rules
+        - name: Reload new udev rules and trigger
           shell:
             cmd: udevadm control --reload-rules && udevadm trigger
 
-        - name: Install multipath tools Ubuntu
+        - name: Install multipath tools when Ubuntu
           apt: name=multipath-tools update_cache=yes state=latest force_apt_get=yes
           register: multipathtools
           when: ansible_distribution_file_variety == 'Debian'
+
+        - name: Install multipath tools if when Amazon Linux 2
+          yum:
+            name: device-mapper-multipath
+            state: latest
+          register: device_mapper_multipath
+          when:
+            - ansible_distribution_file_variety == 'Amazon'
+            - ansible_distribution_major_version == '2'
+
+        - debug:
+            var: device_mapper_multipath
 
         - name: Install multipath tools SLES and OpenSuse
           zypper:
@@ -43,6 +65,13 @@
         - name: multipathtools
           debug:
             var: multipathtools
+
+        - name: Enable default multipath configuration file and start the multipath daemon when Amazon Linux 2
+          shell:
+            cmd: mpathconf --enable --with_multipathd y
+          when:
+            - ansible_distribution_file_variety == 'Amazon'
+            - ansible_distribution_major_version == '2'
 
         - name: create/edit multipath.conf
           shell:
@@ -71,7 +100,8 @@
           service:
             name: multipathd
             state: restarted
-          when: ansible_distribution_file_variety == 'Debian'
+          when: (ansible_distribution_file_variety == 'Debian') or
+                (ansible_distribution_file_variety == 'Amazon' and ansible_distribution_major_version == '2')
 
         - name: start multipath daemon
           shell:
@@ -84,16 +114,16 @@
             state: started
           when: ansible_distribution_file_variety == 'SUSE'
 
-        - name: multipath -v2
+        - name: multipath -v3
           shell:
             cmd: multipath -v2
           when: ansible_distribution_file_variety == 'SUSE'
 
-        - name: multipath daemon start on boot
+        - name: register multipath -ll output
           shell:
             cmd: multipath -ll
           register: multipathll
 
-        - name: show the current multipath topology
+        - name: print multipath -ll output
           debug:
             var: multipathll

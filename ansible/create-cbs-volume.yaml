@@ -3,10 +3,10 @@
   hosts: cloudblockstore
   connection: local
   gather_facts: no
-  #  vars_files:
-  #  - ./secrets.yaml
   collections:
   - purestorage.flasharray
+  vars:
+    ansible_python_interpreter: auto
   
   tasks:
     - name: create a new volume

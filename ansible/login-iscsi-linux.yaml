@@ -2,7 +2,9 @@
 - hosts: "{{ cloud_initiator }}" 
   become: true
   gather_facts: yes
- 
+  vars:
+    ansible_python_interpreter: auto
+
   tasks:
  
         - name: Create iSCSI interfaces

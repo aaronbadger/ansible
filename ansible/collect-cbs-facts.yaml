@@ -3,11 +3,10 @@
   hosts: cloudblockstore
   connection: local
   gather_facts: yes
-  #  The 'pure_api_token' variable can be stored in ansible-vault secrets.yaml file for more secure API token retrieval
-  #  vars_files:
-  #    - ./secrets.yaml
   collections:
   - purestorage.flasharray
+  vars:
+    ansible_python_interpreter: auto
 
   tasks:
     - name: Collect Pure iSCSI Configuration

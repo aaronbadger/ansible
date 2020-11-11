@@ -3,9 +3,9 @@
   gather_facts: no
   vars:
     ansible_shell_type: powershell
+    ansible_python_interpreter: auto
+
   tasks:
-
-
     - name: Start iscsi Service
       win_shell: Start-Service -Name MSiSCSI
       register: iscsiservice
