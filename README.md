@@ -32,7 +32,13 @@ This can be done via AWS user data or after instance launch via ssh and CLI.
 
 **AWS Supported OS:**
 
-- Ubuntu 18.04
+Ubuntu 18.04
+
+- AMI ID Tested = ami-0a36eb8fadc976275
+
+Amazon Linux 2
+
+- AMI ID Tested = ami-0ac73f33a1888c64a
 
 **AWS User Data:**
 
