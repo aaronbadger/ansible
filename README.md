@@ -9,6 +9,12 @@ The second playbook can be used for provisioning additional Cloud Block Store vo
 
 ## Before you Begin:
 
+### Provision Cloud Block Store on AWS
+
+Retrive the Management IP Address from CloudFormation Output and Generate A Pure API Token.
+
+- The Pure API Token can be created and retrived from the Cloud Block Store CLI or GUI.
+
 ### Install ansible on EC2 VM (control node).
 
 This is where you will pull down the [ansible repo](https://github.com/aaronbadger/ansible.git) and run the ansible playbooks from. 
