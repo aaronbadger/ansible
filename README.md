@@ -55,9 +55,9 @@ sudo amazon-linux-extras install ansible2 -y
 **SUSE Linux Enterprise Server 15 SP2**
 ```
 #!/bin/bash
-zypper addrepo https://download.opensuse.org/repositories/systemsmanagement/openSUSE_Leap_15.2/systemsmanagement.repo
-zypper refresh
-zypper install ansible
+zypper ar https://download.opensuse.org/repositories/systemsmanagement/openSUSE_Leap_15.2/systemsmanagement.repo
+zypper --gpg-auto-import-keys refresh
+zypper --non-interactive --no-gpg-checks --quiet install ansible
 ```
 
 **Ubuntu 18.04**
@@ -69,6 +69,8 @@ apt-add-repository --yes --update ppa:ansible/ansible
 apt install ansible -y
 ```
 For additional help with installing ansible, reference [Installing Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) for official documentation. 
+
+*Note: If installing ansible via user data at the time of compute provisioning, allow a few minutes for the ansible installation to complete prior to running ansible playbooks against the VM. To confirm if the ansible installation is complete, ssh into the VM and run ansible -h or confirm the /etc/ansible/ dir is present on the VM.*
 
 
 ## Install and Configure iSCSI
