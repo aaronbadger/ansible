@@ -1,10 +1,16 @@
 # Install and Configure iSCSI and Provision Cloud Block Store Volumes using Ansible
 
-There are 2 main Ansible playbooks described in this document:
+### There are 2 main Ansible playbooks described in this document:
 
-The first will perform a base installation and configuration of iSCSI on a newly provisioned cloud vm. 
+**Playbook 1 - base_install_linux.yaml**
 
-The second playbook can be used for provisioning additional Cloud Block Store volumes after iSCSI has been already been installed and configured.
+The 1st playbook will perform a base installation and configuration of iSCSI on a newly provisioned cloud VM. Secondly on the Cloud Block Store array, a host and volume will be be automatically provisioned via API. This playbook will rely on the volume name and size as specified by the user via a command line parameter. The default hostname of the VM and a randomly generated IQN will be used to configure the Cloud Block Store host and attach the volume to the host. 
+
+**Playbook 2 - provision_storage_linux.yaml**
+
+The 2nd playbook may be used for provisioning additional Cloud Block Store volumes after the 1st playbook has been run. This playbook will provision additional storage volumes on the Cloud Block Store array, again relying on the volume name and size as specified by the user via a command line parameter. This playbook will then perform an iSCSI rescan on the VM to make visible the newly added multipath device. 
+
+*Note: The user will need to mount the newly added storage volume prior to use.*
 
 
 ## Before you Begin:
