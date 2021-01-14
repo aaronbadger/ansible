@@ -80,7 +80,7 @@ apt install ansible -y
 ```
 For additional help with installing ansible, reference [Installing Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) for official documentation. 
 
-*Note: If installing ansible via user data at the time of compute provisioning, allow a few minutes for the ansible installation to complete prior to running ansible playbooks against the VM. To confirm if the ansible installation is complete, ssh into the VM and run ansible -h or confirm the /etc/ansible/ dir is present on the VM.*
+*Note: If installing ansible via user data at the time of compute provisioning, allow a few minutes for the ansible installation to complete prior to running ansible playbooks against the VM. To confirm if the ansible installation is complete, ssh into the VM and run ansible --version.*
 
 
 ## Install and Configure iSCSI
