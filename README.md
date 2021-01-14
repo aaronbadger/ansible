@@ -38,13 +38,14 @@ This can be done via AWS user data or after instance launch via ssh and CLI.
 
 **AWS Supported OS:**
 
-Ubuntu 18.04
+Amazon Linux 2 AMI (HVM)
+- Tested AMI = ami-0a36eb8fadc976275 (64-bit x86)
 
-- AMI ID Tested = ami-0a36eb8fadc976275
+SUSE Linux Enterprise Server 15 SP2 (HVM)
+- Tested AMI = ami-0174313b5af8423d7 (64-bit x86)
 
-Amazon Linux 2
-
-- AMI ID Tested = ami-0ac73f33a1888c64a
+Ubuntu Server 18.04 LTS (HVM)
+- Tested AMI = ami-0ac73f33a1888c64a (64-bit x86)
 
 **AWS User Data:**
 
