@@ -31,6 +31,12 @@ This is where you will pull down the [ansible repo](https://github.com/aaronbadg
 
 See [Installing Ansible Control Node Requirements](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#control-node-requirements) for official documentation. 
 
+### Install Install Purestorage python SDK and ansible-galaxy collection on EC2 VM (control node).
+
+``pip3 install purestorage``
+
+``ansible-galaxy collection install purestorage.flasharray``
+
 
 ### Install ansible on EC2 VM (managed node).
 
