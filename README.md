@@ -1,4 +1,4 @@
-# Install and Configure iSCSI and Provision Cloud Block Store Volumes using Ansible
+# Install and Configure iSCSI and Provision Cloud Block Store Volumes using Ansible on AWS
 
 ### There are 2 main Ansible playbooks described in this document:
 
@@ -36,7 +36,7 @@ See [Installing Ansible Control Node Requirements](https://docs.ansible.com/ansi
 
 This can be done via AWS user data or after instance launch via ssh and CLI.
 
-**AWS Supported OS:**
+### Supported Linux OS - AWS:
 
 Amazon Linux 2 AMI (HVM)
 - Tested AMI = ami-0a36eb8fadc976275 (64-bit x86)
@@ -47,7 +47,7 @@ SUSE Linux Enterprise Server 15 SP2 (HVM)
 Ubuntu Server 18.04 LTS (HVM)
 - Tested AMI = ami-0ac73f33a1888c64a (64-bit x86)
 
-**AWS User Data:**
+### AWS User Data:
 
 Specify The Below User Data in AWS during EC2 Launch. 
 
