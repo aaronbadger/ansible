@@ -52,7 +52,7 @@ Specify The Below User Data in AWS during EC2 Launch.
 sudo amazon-linux-extras install ansible2 -y
 ```
 
-**openSUSE Leap 15.2**
+**SUSE Linux Enterprise Server 15 SP2**
 ```
 #!/bin/bash
 zypper addrepo https://download.opensuse.org/repositories/systemsmanagement/openSUSE_Leap_15.2/systemsmanagement.repo
